@@ -1,0 +1,23 @@
+{
+  "name": "ics-to-timetree",
+  "version": "1.0.0",
+  "description": "Imports ics to timetree using GitHub Actions.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BonyChops/ics-to-timetree.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BonyChops/ics-to-timetree/issues"
+  },
+  "homepage": "https://github.com/BonyChops/ics-to-timetree#readme",
+  "dependencies": {
+    "@timetreeapp/web-api": "^3.0.0",
+    "node-ical": "^0.15.3"
+  }
+}
