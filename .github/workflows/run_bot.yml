@@ -19,6 +19,14 @@ jobs:
       - uses: szenius/set-timezone@v1.0
         with:
           timezoneLinux: "Asia/Tokyo"
+      - name: Fetch DB from gist
+        run: curl -L ${{ secrets.GIST_URL }}/raw/db.json -o db.json
+      - run: node app
+        env:
+          TIMETREE_TOKEN: ${{ secrets.TIMETREE_TOKEN }}
+          TIMETREE_CALENDAR_ID: ${{ secrets.TIMETREE_CALENDAR_ID }}
+          ICS_URL: ${{ secrets.ICS_URL }}
+          BOT_NAME: ${{ secrets.BOT_NAME }}
       - uses: popsiclestick/gist-sync-action@v1.2.0
         id: sync
         with:
@@ -27,9 +35,3 @@ jobs:
           gist_title: ics-to-timetree Database
           gist_description: A database of ics-to-timetree
           github_file: db.json
-      - run: node app
-        env:
-          TIMETREE_TOKEN: ${{ secrets.TIMETREE_TOKEN }}
-          TIMETREE_CALENDAR_ID: ${{ secrets.TIMETREE_CALENDAR_ID }}
-          ICS_URL: ${{ secrets.ICS_URL }}
-          BOT_NAME: ${{ secrets.BOT_NAME }}
