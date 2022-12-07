@@ -32,6 +32,6 @@ jobs:
         with:
           auth: ${{ secrets.GIST_TOKEN }}
           gist_url: ${{ secrets.GIST_URL }}
-          gist_title: ics-to-timetree Database
+          gist_title: db.json
           gist_description: A database of ics-to-timetree
           github_file: db.json
