@@ -22,9 +22,9 @@ const generateOptions = (webEvent) => ({
   category: "schedule",
   description: `${process.env.BOT_NAME ?? "ics-to-timetree"}より作成`,
   allDay: Boolean(webEvent.start.dateOnly),
-  startAt: webEvent.start.dateOnly ? moment(webEvent.start).startOf("day") : webEvent.start,
+  startAt: webEvent.start.dateOnly ? moment(webEvent.start).startOf("day").toISOString() : webEvent.start,
   startTimezone: "Asia/Tokyo",
-  endAt: !webEvent.start.dateOnly ? webEvent.end : moment(webEvent.start).startOf("day"),
+  endAt: !webEvent.start.dateOnly ? webEvent.end : moment(webEvent.start).startOf("day").toISOString(),
   endTimezone: "Asia/Tokyo",
   label: {
     id: 1
@@ -56,7 +56,7 @@ const generateOptions = (webEvent) => ({
       } catch (e) {
         debugLog(e.response.data);
         if (e.response?.data?.status !== 404) {
-          exit(1);
+          process.exit(1);
         }
       }
 
@@ -75,7 +75,7 @@ const generateOptions = (webEvent) => ({
         result = await timetreeClient.createEvent(options);
       }catch(e){
         console.error(e.response.data);
-        exit(1);
+        process.exit(1);
       }
       await db.push(`/relations/${webEvent.uid}`, {
         ids: {
@@ -97,7 +97,7 @@ const generateOptions = (webEvent) => ({
         } catch (e) {
           console.error(e.response.data);
           debugLog(options);
-          exit(1);
+          process.exit(1);
         }
       }
     }
