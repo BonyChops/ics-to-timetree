@@ -43,7 +43,7 @@ const generateOptions = (webEvent) => ({
       debugLog(webEvent.uid);
       relation = await db.getData(`/relations/${webEvent.uid}`);
     } catch (e) {
-      debugLog("Not found");
+      console.log("Not found");
     }
     let timetreeEvent = null;
     debugLog(relation);
@@ -63,6 +63,9 @@ const generateOptions = (webEvent) => ({
     }
 
     if (!timetreeEvent) {
+      debugLog(webEvent);
+      debugLog("creating")
+      return;
       debugLog({
         calendarId: process.env.TIMETREE_CALENDAR_ID,
         title: webEvent.summary,
