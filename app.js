@@ -63,9 +63,6 @@ const generateOptions = (webEvent) => ({
     }
 
     if (!timetreeEvent) {
-      debugLog(webEvent);
-      debugLog("creating")
-      return;
       debugLog({
         calendarId: process.env.TIMETREE_CALENDAR_ID,
         title: webEvent.summary,
