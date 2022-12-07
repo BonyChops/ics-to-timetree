@@ -3,10 +3,10 @@ const ical = require('node-ical');
 const { OAuthClient } = require("@timetreeapp/web-api");
 const fs = require("fs");
 const moment = require("moment");
-require('moment-timezone');
+//require('moment-timezone');
 const { JsonDB, Config } = require('node-json-db');
 const db = new JsonDB(new Config("db", true, true, '/'));
-moment.tz.setDefault('Asia/Tokyo');
+//moment.tz.setDefault('Asia/Tokyo');
 
 const timetreeClient = new OAuthClient(process.env.TIMETREE_TOKEN);
 

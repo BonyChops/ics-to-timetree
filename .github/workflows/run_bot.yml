@@ -16,9 +16,9 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - uses: szenius/set-timezone@v1.0
-        with:
-          timezoneLinux: "Asia/Tokyo"
+      # - uses: szenius/set-timezone@v1.0
+      #   with:
+      #     timezoneLinux: "Asia/Tokyo"
       - name: Fetch DB from gist
         run: curl -sL ${{ secrets.GIST_URL }}/raw/db.json -o db.json
       - run: node app
