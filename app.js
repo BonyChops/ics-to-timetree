@@ -35,7 +35,7 @@ const generateOptions = (webEvent) => ({
   const webEvents = await ical.async.fromURL(process.env.ICS_URL);
   const currentEvents = Object.values(webEvents).filter(v => moment(new Date()).diff(moment(v.start)) < 0);
   for (const webEvent of Object.values(webEvents)) {
-    if (moment(webEvent.start).diff(moment(new Date())) < 0 || !webEvent.uid) {
+    if (moment(webEvent.start).diff(moment(new Date())) < 0 || !webEvent.uid || !webEvent.start || !webEvent.end) {
       continue;
     }
     let relation = null;
@@ -70,7 +70,13 @@ const generateOptions = (webEvent) => ({
         description: `${process.env.BOT_NAME ?? "ics-to-timetree"}より作成`
       });
       const options = generateOptions(webEvent);
-      const result = await timetreeClient.createEvent(options);
+      let result;
+      try{
+        result = await timetreeClient.createEvent(options);
+      }catch(e){
+        console.error(e.response.data);
+        return;
+      }
       await db.push(`/relations/${webEvent.uid}`, {
         ids: {
           webEvent: webEvent.uid,

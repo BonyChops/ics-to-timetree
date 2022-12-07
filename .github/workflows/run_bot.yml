@@ -20,7 +20,7 @@ jobs:
         with:
           timezoneLinux: "Asia/Tokyo"
       - name: Fetch DB from gist
-        run: curl -L ${{ secrets.GIST_URL }}/raw/db.json -o db.json
+        run: curl -sL ${{ secrets.GIST_URL }}/raw/db.json -o db.json
       - run: node app
         env:
           TIMETREE_TOKEN: ${{ secrets.TIMETREE_TOKEN }}
