@@ -1,0 +1,35 @@
+name: Bot Run Job
+'on':
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0/15 * * * *'
+
+
+jobs:
+  run_bb_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "Asia/Tokyo"
+      - uses: popsiclestick/gist-sync-action@v1.2.0
+        id: sync
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gist_url: ${{ secrets.GIST_URL }}
+          gist_title: ics-to-timetree Database
+          gist_description: A database of ics-to-timetree
+          github_file: db.json
+      - run: node app
+        env:
+          TIMETREE_TOKEN: ${{ secrets.TIMETREE_TOKEN }}
+          TIMETREE_CALENDAR_ID: ${{ secrets.TIMETREE_CALENDAR_ID }}
+          ICS_URL: ${{ secrets.ICS_URL }}
+          BOT_NAME: ${{ secrets.BOT_NAME }}

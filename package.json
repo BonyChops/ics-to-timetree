@@ -18,6 +18,10 @@
   "homepage": "https://github.com/BonyChops/ics-to-timetree#readme",
   "dependencies": {
     "@timetreeapp/web-api": "^3.0.0",
-    "node-ical": "^0.15.3"
+    "dotenv": "^16.0.3",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.39",
+    "node-ical": "^0.15.3",
+    "node-json-db": "^2.1.3"
   }
 }
